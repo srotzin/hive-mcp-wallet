@@ -1,4 +1,7 @@
 # Smithery Registry — HiveWallet MCP Server
+# NOTE: Smithery submission permanently dropped per Hive doctrine.
+# This file is kept in the repo for completeness / future registry compatibility.
+# DO NOT submit to https://smithery.ai
 
 startCommand:
   type: http
