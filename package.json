@@ -1,21 +1,35 @@
 {
   "name": "hive-mcp-wallet",
-  "version": "1.0.0",
-  "description": "HiveWallet MCP Server — agent-native wallet primitive (provision / transfer / verify / chain) with HiveDNA 3-proof receipts (SHOD + spectral-ZK + CTEF, Ed25519-signed). Real rails on HiveBank. USDC on Base.",
+  "version": "1.1.1",
+  "description": "HiveWallet MCP Server \u2014 agent-native wallet primitive (provision / transfer / verify / chain) with HiveDNA 3-proof receipts (SHOD + spectral-ZK + CTEF, Ed25519-signed). Real rails on HiveBank. USDC on Base.",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js"
   },
-  "engines": { "node": ">=18.0.0" },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "express": "^4.19.2"
   },
   "keywords": [
-    "mcp", "model-context-protocol", "wallet", "agent-wallet",
-    "hive", "hive-civilization", "hivedna", "hivewallet",
-    "usdc", "base", "a2a", "agentic", "ai-agent",
-    "ed25519", "audit", "402"
+    "mcp",
+    "model-context-protocol",
+    "wallet",
+    "agent-wallet",
+    "hive",
+    "hive-civilization",
+    "hivedna",
+    "hivewallet",
+    "usdc",
+    "base",
+    "a2a",
+    "agentic",
+    "ai-agent",
+    "ed25519",
+    "audit",
+    "402"
   ],
   "author": "Steve Rotzin <steve@thehiveryiq.com>",
   "license": "MIT",

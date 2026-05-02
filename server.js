@@ -18,11 +18,28 @@ import { renderLanding, renderRobots, renderSitemap, renderSecurity, renderOgIma
 const app = express();
 app.use(express.json({ limit: '256kb' }));
 
+// ─── CORS (permissive on read-only / discovery surface) ─────────────────────
+// Browser callers (e.g. thehiveryiq.com live demo) need to hit /mcp directly.
+// The free tools (wallet_info, wallet_verify, wallet_chain) carry no secrets;
+// the paid tools (wallet_provision, wallet_transfer) still gate on x402.
+// Origin is wide-open by design — there is no cookie-bearing surface here.
+app.use((req, res, next) => {
+  res.setHeader('access-control-allow-origin', '*');
+  res.setHeader('access-control-allow-methods', 'GET, POST, OPTIONS');
+  res.setHeader('access-control-allow-headers', 'content-type, accept, x-payment');
+  res.setHeader('access-control-max-age', '86400');
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+  next();
+});
+
 const PORT     = process.env.PORT     || 3000;
 const FACADE   = process.env.HIVE_WALLET_URL || 'https://hive-wallet.onrender.com';
 const HIVEBANK = process.env.HIVEBANK_URL    || 'https://hivebank.onrender.com';
 
-const VERSION = '1.0.0';
+const VERSION = '1.1.1';
 const TREASURY  = '0x15184Bf50B3d3F52b60434f8942b7D52F2eB436E';
 const BASE_USDC = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
 
