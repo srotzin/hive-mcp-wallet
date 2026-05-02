@@ -1,10 +1,18 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.srotzin/hive-mcp-wallet",
-  "description": "Agent-native wallet: provision, transfer, verify with HiveDNA 3-proof receipts. USDC on Base.",
-  "title": "Hive Wallet",
-  "repository": { "url": "https://github.com/srotzin/hive-mcp-wallet", "source": "github" },
+  "description": "Agent-native wallet primitive \u2014 DID is the account holder, HiveDNA 3-proof receipts.",
+  "title": "Hive Mcp Wallet",
   "version": "1.0.0",
-  "websiteUrl": "https://www.hiveagentiq.com",
-  "remotes": [{ "type": "streamable-http", "url": "https://hive-mcp-wallet.onrender.com/mcp" }]
+  "repository": {
+    "url": "https://github.com/srotzin/hive-mcp-wallet",
+    "source": "github"
+  },
+  "websiteUrl": "https://thehiveryiq.com",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://hive-mcp-wallet.onrender.com/mcp"
+    }
+  ]
 }
