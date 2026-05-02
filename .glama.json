@@ -1,0 +1,16 @@
+{
+  "name": "hive-mcp-wallet",
+  "title": "Hive Wallet",
+  "description": "Agent-native wallet primitive: provision DID-as-holder wallets, transfer USDC on Base with HiveDNA 3-proof receipts (SHOD + spectral-ZK + CTEF, Ed25519-signed), verify and walk receipt chains. Real rails. No mock.",
+  "category": ["Finance & Fintech", "Identity"],
+  "tags": ["wallet", "agent-wallet", "usdc", "base", "hivedna", "audit", "ed25519", "x402", "a2a"],
+  "transport": "streamable-http",
+  "remote": "https://hive-mcp-wallet.onrender.com/mcp",
+  "homepage": "https://www.hiveagentiq.com",
+  "repository": "https://github.com/srotzin/hive-mcp-wallet",
+  "license": "MIT",
+  "author": "Steve Rotzin <steve@thehiveryiq.com>",
+  "brand": {
+    "primary": "#FFB800"
+  }
+}
