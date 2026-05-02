@@ -1,0 +1,126 @@
+# Smithery Registry — HiveWallet MCP Server
+
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  url: https://hive-mcp-wallet.onrender.com/mcp
+
+name: hive-mcp-wallet
+displayName: HiveWallet — Agent-Native Wallet MCP (HiveDNA 3-proof receipts)
+version: "1.0.0"
+description: >
+  MCP server for HiveWallet — the agent-native wallet primitive where the DID IS the account holder.
+  Provision wallets, transfer USDC and mint HiveDNA 3-proof receipts (SHOD + spectral-ZK + CTEF, Ed25519-signed,
+  score 0-1000), and verify receipts or full chains offline. Public verifier endpoints — anyone with the
+  receipt and the published public key can validate without trusting the operator. Real rails — USDC on Base.
+
+author:
+  name: Steve Rotzin
+  email: steve@thehiveryiq.com
+  url: https://www.thehiveryiq.com
+
+license: MIT
+homepage: https://github.com/srotzin/hive-mcp-wallet
+repository:
+  type: git
+  url: https://github.com/srotzin/hive-mcp-wallet
+
+transport: streamable-http
+endpoint: https://hive-mcp-wallet.onrender.com/mcp
+protocol: "2024-11-05"
+
+categories:
+  - finance
+  - wallet
+  - identity
+  - agent-to-agent
+  - audit
+
+tags:
+  - mcp
+  - hive
+  - hivewallet
+  - hivedna
+  - wallet
+  - agent-wallet
+  - usdc
+  - base
+  - a2a
+  - ai-agents
+  - ed25519
+  - audit
+
+tools:
+  - name: wallet_info
+    description: >
+      Return HiveWallet metadata: facade version, backend version, HiveDNA verifier public key (b64u),
+      supported proofs (SHOD, SPECTRAL_ZK, CTEF), and verifier endpoints. Free discovery call.
+    inputs: []
+  - name: wallet_provision
+    description: >
+      Create a fresh agent-DID wallet. The DID is the account holder; there is no human owner.
+      Returns DID, initial chain root, signing-key cert metadata.
+    inputs:
+      - name: hint
+        type: string
+        required: false
+        description: "Human-readable label (does not appear on-chain)"
+      - name: owner
+        type: string
+        required: false
+        description: "Optional DID of a parent / operator agent — recorded in cert chain only"
+  - name: wallet_transfer
+    description: >
+      Move USDC between two agent DIDs and mint a HiveDNA 3-proof receipt. Real settlement on HiveBank.
+    inputs:
+      - name: from_did
+        type: string
+        required: true
+        description: "Source agent DID (must control signing key)"
+      - name: to_did
+        type: string
+        required: true
+        description: "Destination agent DID"
+      - name: amount_usdc
+        type: number
+        required: true
+        description: "Amount in USDC (USDC on Base)"
+      - name: memo
+        type: string
+        required: false
+        description: "Optional memo (recorded in receipt claims, not on-chain)"
+  - name: wallet_verify
+    description: >
+      Verify a HiveDNA receipt by id. Public, no auth. Re-runs Ed25519 signature, body-hash, and CTEF
+      chain-entry recompute against the canonical body. Regulator-grade primitive.
+    inputs:
+      - name: receipt_id
+        type: string
+        required: true
+        description: "HiveDNA receipt identifier (rcpt_<base32>)"
+  - name: wallet_chain
+    description: >
+      Walk the full receipt chain for a DID and return a signed integrity statement. Public, no auth.
+    inputs:
+      - name: did
+        type: string
+        required: true
+        description: "Agent DID whose chain should be walked"
+
+runtime:
+  type: node
+  version: ">=18"
+  command: node server.js
+  env:
+    - name: PORT
+      default: "3000"
+      required: false
+    - name: HIVE_WALLET_URL
+      default: "https://hive-wallet.onrender.com"
+      required: false
+    - name: HIVEBANK_URL
+      default: "https://hivebank.onrender.com"
+      required: false
