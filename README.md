@@ -82,3 +82,38 @@ PORT=3000 node server.js
 ## License
 
 MIT
+
+
+---
+
+## Agent-Callable
+
+This MCP server is fully agent-callable — no accounts, no API keys, no human approval required.
+
+| Property | Value |
+|----------|-------|
+| Discovery URL | `https://hivemorph.onrender.com/.well-known/agent-card.json` |
+| MCP endpoint | `https://hive-mcp-gateway.onrender.com/mcp` (JSON-RPC 2.0 / MCP 2024-11-05) |
+| x402 pricing | `https://hivemorph.onrender.com/v1/x402/pricing` |
+| Payment | USDC on Base 8453 via x402 |
+| Treasury | `0x15184Bf50B3d3F52b60434f8942b7D52F2eB436E` |
+| DID | `did:hivemorph:w2loren:0x6b11b1bcaf253c` |
+| Hive site | [thehiveryiq.com](https://thehiveryiq.com) |
+
+### Sample request
+
+```bash
+# 1. Get x402 quote (free)
+curl -X POST https://hivemorph.onrender.com/v1/x402/quote \
+  -H 'Content-Type: application/json' \
+  -d '{"agent_did":"did:example:agent","profile":"standard"}'
+
+# 2. Settle USDC on Base 8453 (ERC-681 URI in quote response)
+
+# 3. Call with access token
+curl -X POST https://hive-mcp-gateway.onrender.com/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'X-Hive-Access: <token_from_step_1>' \
+  -d '{"jsonrpc":"2.0","method":"tools/list","params":{},"id":1}'
+```
+
